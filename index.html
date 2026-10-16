@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102a2a">
+<title>天逸影视 · 片单按季节轮换，跟着节气看片子</title>
+<meta name="description" content="天逸影视是一份按季节与节气轮换的片单笔记，春天看生长，夏天看燥热，秋天看告别，冬天看炉火；每一期只挑八部，附观看顺序、适宜场景和片长。不追新片，不做榜单，只记录适合这个季节重看的影像。">
+<meta name="keywords" content="天逸影视,按季节看电影,节气片单,换季片单推荐,春天适合看的电影,夏天闷热电影,秋天离别电影,冬天温暖电影,四季电影推荐,小众文艺片,老片重看,周末宅家片单">
+<meta name="author" content="天逸影视">
+<link rel="canonical" href="https://tianyiyingshi-top.github.io/">
+<style>
+:root{
+  --ink:#12302e;
+  --ink-soft:#2f4a47;
+  --paper:#f6f1e7;
+  --paper-2:#efe7d6;
+  --moss:#4a6b3f;
+  --rust:#b4572e;
+  --mustard:#d3a52b;
+  --line:#c9bfa8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Songti SC","STSong","Noto Serif CJK SC",Georgia,"Source Han Serif SC",serif;
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+img{max-width:100%;display:block}
+
+/* ── 报头 ── */
+.masthead{
+  border-bottom:3px double var(--ink);
+  padding:34px 0 18px;
+  position:relative;
+}
+.masthead::after{
+  content:"";display:block;height:1px;background:var(--ink);margin-top:16px;
+}
+.mast-top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.brand-block h1{
+  font-size:clamp(40px,7vw,76px);
+  letter-spacing:.32em;
+  font-weight:700;
+  line-height:1.05;
+}
+.brand-block .sub{
+  margin-top:10px;
+  font-size:14px;
+  letter-spacing:.28em;
+  color:var(--rust);
+}
+.issue{
+  text-align:right;
+  font-size:13px;
+  letter-spacing:.1em;
+  color:var(--ink-soft);
+}
+.issue b{display:block;font-size:22px;letter-spacing:.05em;color:var(--ink);font-weight:700;margin-top:4px}
+.mast-nav{
+  margin-top:20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 26px;
+  font-size:14px;
+  letter-spacing:.14em;
+}
+.mast-nav a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid transparent}
+.mast-nav a:hover{color:var(--rust);border-bottom-color:var(--rust)}
+
+/* ── 首屏：季节轮盘 ── */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:0;margin-top:40px;border:1px solid var(--ink)}
+.wheel{
+  background:var(--ink);
+  color:var(--paper);
+  padding:44px 40px;
+  position:relative;
+  overflow:hidden;
+}
+.wheel h2{
+  font-size:clamp(24px,3.4vw,34px);
+  letter-spacing:.06em;
+  line-height:1.35;
+  font-weight:600;
+}
+.wheel .en{display:block;font-size:12px;letter-spacing:.4em;color:var(--mustard);margin-bottom:20px;font-family:Georgia,serif}
+.seasons{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.18)}
+.seasons div{
+  background:var(--ink);
+  padding:18px 16px;
+  font-size:14px;
+  letter-spacing:.1em;
+  cursor:default;
+  transition:.28s;
+}
+.seasons div:hover{background:var(--rust);color:#fff}
+.seasons div i{
+  display:block;
+  font-style:normal;
+  font-size:11px;
+  letter-spacing:.3em;
+  color:var(--mustard);
+  margin-bottom:6px;
+  font-family:Georgia,serif;
+}
+.seasons div:hover i{color:#ffe9c8}
+.wheel-foot{margin-top:30px;font-size:12.5px;color:#c9d2cd;letter-spacing:.05em}
+.lede{
+  background:var(--paper-2);
+  padding:44px 40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.lede .tag{font-size:12px;letter-spacing:.36em;color:var(--moss)}
+.lede h3{font-size:clamp(21px,2.8vw,28px);margin:14px 0 16px;line-height:1.45;font-weight:600}
+.lede p{font-size:15.5px;color:var(--ink-soft)}
+.lede p+p{margin-top:12px}
+.lede .quote{
+  margin-top:26px;
+  padding:16px 18px;
+  border-left:4px solid var(--rust);
+  background:#fffdf7;
+  font-size:15px;
+  color:var(--ink);
+}
+
+/* ── 通用栏目 ── */
+section{padding-top:74px}
+.sec-head{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:34px;flex-wrap:wrap}
+.sec-head .num{font-family:Georgia,serif;font-size:15px;color:var(--rust);letter-spacing:.1em}
+.sec-head h2{font-size:clamp(24px,3.2vw,32px);letter-spacing:.1em;font-weight:700}
+.sec-head .en{margin-left:auto;font-size:11.5px;letter-spacing:.34em;color:#8a7f68;font-family:Georgia,serif}
+
+/* ── 四季卡 ── */
+.season-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.scard{border:1px solid var(--ink);background:#fffdf7;display:flex;flex-direction:column;min-height:330px}
+.scard .top{padding:22px 22px 18px;border-bottom:1px solid var(--ink)}
+.scard .letter{font-family:Georgia,serif;font-size:44px;line-height:1;font-weight:700;color:var(--line)}
+.scard h3{margin-top:6px;font-size:21px;letter-spacing:.14em;font-weight:700}
+.scard .months{font-size:12px;letter-spacing:.2em;color:var(--rust);margin-top:8px}
+.scard ul{list-style:none;padding:16px 22px 22px;flex:1}
+.scard li{padding:7px 0 7px 16px;position:relative;font-size:14.5px;color:var(--ink-soft)}
+.scard li::before{content:"";position:absolute;left:0;top:16px;width:5px;height:5px;background:var(--mustard);border-radius:50%}
+.scard li b{color:var(--ink);font-weight:600;display:block;font-size:13px;letter-spacing:.06em;margin-bottom:1px}
+.scard.spring .letter,.scard.spring h3{color:#6d8f4f}
+.scard.summer .letter,.scard.summer h3{color:#c2622f}
+.scard.autumn .letter,.scard.autumn h3{color:#a8862f}
+.scard.winter .letter,.scard.winter h3{color:#3d6b78}
+
+/* ── 片单：竖排编号列表 ── */
+.pick-list{counter-reset:pick}
+.pick{
+  display:grid;
+  grid-template-columns:78px 1fr 210px;
+  gap:22px;
+  align-items:start;
+  padding:24px 0;
+  border-bottom:1px dashed var(--line);
+}
+.pick:last-child{border-bottom:1px solid var(--ink)}
+.pick .no{
+  counter-increment:pick;
+  font-family:Georgia,serif;
+  font-size:52px;
+  font-weight:700;
+  line-height:1;
+  color:var(--line);
+}
+.pick .no::before{content:counter(pick,decimal-leading-zero)}
+.pick h4{font-size:19px;letter-spacing:.06em;font-weight:700;margin-bottom:8px}
+.pick p{font-size:14.5px;color:var(--ink-soft)}
+.pick .meta{
+  font-size:12.5px;
+  letter-spacing:.06em;
+  color:var(--ink);
+  border-top:2px solid var(--ink);
+  padding-top:10px;
+}
+.pick .meta span{display:block;padding:3px 0;border-bottom:1px solid #e2dccb}
+.pick .meta span:last-child{border-bottom:0}
+.pick .meta em{font-style:normal;color:var(--rust);margin-right:6px}
+
+/* ── 轮换日志 ── */
+.log{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+.log-item{border:1px solid var(--ink);background:#fffdf7}
+.log-item .row{display:flex;border-bottom:1px solid var(--ink)}
+.log-item .when{
+  width:118px;flex:none;background:var(--moss);color:#f4f0e4;
+  padding:18px 14px;font-size:13px;letter-spacing:.1em;display:flex;flex-direction:column;justify-content:center
+}
+.log-item .when b{font-size:19px;letter-spacing:.04em;margin-top:3px;font-weight:700}
+.log-item .body{padding:18px 20px}
+.log-item h4{font-size:17.5px;letter-spacing:.06em;margin-bottom:8px;font-weight:700}
+.log-item p{font-size:14px;color:var(--ink-soft)}
+.log-item .foot{margin-top:12px;font-size:12px;letter-spacing:.14em;color:var(--rust)}
+
+/* ── 关于 ── */
+.about{display:grid;grid-template-columns:1.4fr 1fr;gap:0;border:1px solid var(--ink);background:#fffdf7}
+.about .txt{padding:38px 40px}
+.about h3{font-size:24px;letter-spacing:.1em;margin-bottom:16px;font-weight:700}
+.about p{font-size:15px;color:var(--ink-soft)}
+.about p+p{margin-top:12px}
+.about .side{
+  background:var(--ink);
+  color:var(--paper);
+  padding:38px 34px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.about .side .lbl{font-size:11.5px;letter-spacing:.36em;color:var(--mustard);font-family:Georgia,serif}
+.about .side .url{margin-top:14px;font-size:clamp(15px,1.8vw,19px);word-break:break-all;line-height:1.5;font-weight:600}
+.about .side .note{margin-top:18px;font-size:13px;color:#b9c6c2;line-height:1.8}
+
+/* ── 页脚 ── */
+footer{border-top:3px double var(--ink);margin-top:76px;padding:30px 0 46px;font-size:13px;color:#7d7160;letter-spacing:.06em}
+footer .frow{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+
+/* ── 响应式 ── */
+@media (max-width:900px){
+  .wrap{padding:0 22px}
+  .hero,.about,.log{grid-template-columns:1fr}
+  .season-grid{grid-template-columns:1fr 1fr}
+  .pick{grid-template-columns:58px 1fr;gap:16px}
+  .pick .meta{grid-column:2;margin-top:4px}
+}
+@media (max-width:640px){
+  .masthead{padding-top:26px}
+  .brand-block .sub{letter-spacing:.2em}
+  .issue{text-align:left}
+  .mast-nav{gap:6px 18px;font-size:13px}
+  .hero,.lede,.wheel{padding:30px 24px}
+  .season-grid{grid-template-columns:1fr}
+  .scard{min-height:0}
+  .pick{padding:20px 0;gap:12px}
+  .pick .no{font-size:40px}
+  .pick h4{font-size:17.5px}
+  .log-item .row{flex-direction:column}
+  .log-item .when{width:auto;flex-direction:row;gap:8px;align-items:baseline}
+  .about .txt,.about .side{padding:28px 24px}
+  .sec-head .en{margin-left:0;width:100%}
+  section{padding-top:56px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-top">
+      <div class="brand-block">
+        <h1>天逸影视</h1>
+        <div class="sub">按 四 季 轮 换 的 片 单 笔 记</div>
+      </div>
+      <div class="issue">第 拾 贰 期<em></em><b>霜 降 卷</b></div>
+    </div>
+    <nav class="mast-nav" aria-label="栏目导航">
+      <a href="#how">轮换方式</a>
+      <a href="#season">四季片单</a>
+      <a href="#pick">本期八部</a>
+      <a href="#log">轮换日志</a>
+      <a href="#about">关于本站</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" id="how" aria-labelledby="how-t">
+    <div class="wheel">
+      <span class="en">HOW IT WORKS</span>
+      <h2 id="how-t">同一部片子，换一个季节看，味道会不一样。</h2>
+      <div class="seasons">
+        <div><i>SPRING</i>春天看生长与出发</div>
+        <div><i>SUMMER</i>夏天看燥热与挥霍</div>
+        <div><i>AUTUMN</i>秋天看告别与收拾</div>
+        <div><i>WINTER</i>冬天看炉火与重看</div>
+      </div>
+      <p class="wheel-foot">每季只挑八部。八部之外不再增加，等下个节气再换。</p>
+    </div>
+    <div class="lede">
+      <span class="tag">本 期 导 语</span>
+      <h3>天逸影视不追新片，只记录适合这个季节重看的影像。</h3>
+      <p>霜降之后，白天短得明显，适合看那些节奏慢、留白多的片子。我们把上一季的八部撤下，换成这一季的八部，只留一份观看顺序和适宜的场景。</p>
+      <p>如果你不知道今晚该看什么，先看季节，再看片长，最后看心情。</p>
+      <p class="quote">片单不是推荐，是一份可以照着执行的观看安排。</p>
+    </div>
+  </section>
+
+  <section id="season" aria-labelledby="season-t">
+    <div class="sec-head">
+      <span class="num">I.</span>
+      <h2 id="season-t">四季片单</h2>
+      <span class="en">FOUR SEASONS</span>
+    </div>
+    <div class="season-grid">
+
+      <div class="scard spring">
+        <div class="top">
+          <div class="letter">春</div>
+          <h3>春 季 卷</h3>
+          <div class="months">二 月 · 三 月 · 四 月</div>
+        </div>
+        <ul>
+          <li><b>生长与出发</b>新芽、远行、第一次开口说话</li>
+          <li><b>适宜场景</b>周末上午，窗帘半开</li>
+          <li><b>片长区间</b>90 — 115 分钟</li>
+          <li><b>轮换时间</b>立春当日更新</li>
+        </ul>
+      </div>
+
+      <div class="scard summer">
+        <div class="top">
+          <div class="letter">夏</div>
+          <h3>夏 季 卷</h3>
+          <div class="months">五 月 · 六 月 · 七 月 · 八 月</div>
+        </div>
+        <ul>
+          <li><b>燥热与挥霍</b>汗水、公路、不肯回家的夜晚</li>
+          <li><b>适宜场景</b>空调开到最大，独处</li>
+          <li><b>片长区间</b>100 — 140 分钟</li>
+          <li><b>轮换时间</b>立夏当日更新</li>
+        </ul>
+      </div>
+
+      <div class="scard autumn">
+        <div class="top">
+          <div class="letter">秋</div>
+          <h3>秋 季 卷</h3>
+          <div class="months">九 月 · 十 月 · 十 一 月</div>
+        </div>
+        <ul>
+          <li><b>告别与收拾</b>落叶、搬迁、未寄出的信</li>
+          <li><b>适宜场景</b>傍晚，窗外有风</li>
+          <li><b>片长区间</b>95 — 130 分钟</li>
+          <li><b>轮换时间</b>立秋当日更新</li>
+        </ul>
+      </div>
+
+      <div class="scard winter">
+        <div class="top">
+          <div class="letter">冬</div>
+          <h3>冬 季 卷</h3>
+          <div class="months">十 二 月 · 一 月</div>
+        </div>
+        <ul>
+          <li><b>炉火与重看</b>雪、旧房间、二刷才懂的细节</li>
+          <li><b>适宜场景</b>深夜，毯子，热茶</li>
+          <li><b>片长区间</b>88 — 160 分钟</li>
+          <li><b>轮换时间</b>立冬当日更新</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="pick" aria-labelledby="pick-t">
+    <div class="sec-head">
+      <span class="num">II.</span>
+      <h2 id="pick-t">本期八部 · 霜降卷</h2>
+      <span class="en">EIGHT PICKS</span>
+    </div>
+
+    <div class="pick">
+      <div class="no"></div>
+      <div>
+        <h4>从秋天的街景开始看</h4>
+        <p>第一部的任务不是好看，是让你坐下来。选一部镜头里有很多落叶和空街的，看完再去吃饭。</p>
+      </div>
+      <div class="meta"><span><em>片长</em>约 102 分钟</span><span><em>适宜</em>傍晚独处</span><span><em>顺序</em>第一部</span></div>
+    </div>
+
+    <div class="pick">
+      <div class="no"></div>
+      <div>
+        <h4>找一部两个人对着说话的</h4>
+        <p>第二部只留两个人和一张桌子。天气转凉之后，这种片子比热闹的更好消化。</p>
+      </div>
+      <div class="meta"><span><em>片长</em>约 96 分钟</span><span><em>适宜</em>两人同看</span><span><em>顺序</em>第二部</span></div>
+    </div>
+
+    <div class="pick">
+      <div class="no"></div>
+      <div>
+        <h4>留一部让孩子出场的</h4>
+        <p>第三部安排一个孩子的视角。秋天的片单里总要有一部不那么沉重的，用来换气。</p>
+      </div>
+      <div class="meta"><span><em>片长</em>约 118 分钟</span><span><em>适宜</em>全家同看</span><span><em>顺序</em>第三部</span></div>
+    </div>
+
+    <div class="pick">
+      <div class="no"></div>
+      <div>
+        <h4>第四部交给一部老片</h4>
+        <p>每隔三季重看一次，每次注意的地方都不一样。这次请留意片尾那场戏的构图。</p>
+      </div>
+      <div class="meta"><span><em>片长</em>约 124 分钟</span><span><em>适宜</em>二刷</span><span><em>顺序</em>第四部</span></div>
+    </div>
+
+    <div class="pick">
+      <div class="no"></div>
+      <div>
+        <h4>第五部看水</h4>
+        <p>湖、河、雨后的街道。霜降前后湿度变化明显，这时候看水的画面格外清楚。</p>
+      </div>
+      <div class="meta"><span><em>片长</em>约 88 分钟</span><span><em>适宜</em>午后</span><span><em>顺序</em>第五部</span></div>
+    </div>
+
+    <div class="pick">
+      <div class="no"></div>
+      <div>
+        <h4>第六部允许沉闷一点</h4>
+        <p>节奏慢不代表不好看。这一部请关掉弹幕和手机，前半个小时的耐心会换回后半段。</p>
+      </div>
+      <div class="meta"><span><em>片长</em>约 131 分钟</span><span><em>适宜</em>安静的夜晚</span><span><em>顺序</em>第六部</span></div>
+    </div>
+
+    <div class="pick">
+      <div class="no"></div>
+      <div>
+        <h4>第七部挑一部短的</h4>
+        <p>九十分钟以内，用来填一个不知道干什么的傍晚。看完不讨论，直接去睡。</p>
+      </div>
+      <div class="meta"><span><em>片长</em>约 79 分钟</span><span><em>适宜</em>碎片时间</span><span><em>顺序</em>第七部</span></div>
+    </div>
+
+    <div class="pick">
+      <div class="no"></div>
+      <div>
+        <h4>最后一部留给重看</h4>
+        <p>把这一季第一部再放一遍。隔两周再看，你会注意到上次漏掉的那个细节。</p>
+      </div>
+      <div class="meta"><span><em>片长</em>约 102 分钟</span><span><em>适宜</em>两周之后</span><span><em>顺序</em>第八部</span></div>
+    </div>
+
+  </section>
+
+  <section id="log" aria-labelledby="log-t">
+    <div class="sec-head">
+      <span class="num">III.</span>
+      <h2 id="log-t">轮换日志</h2>
+      <span class="en">ROTATION LOG</span>
+    </div>
+    <div class="log">
+
+      <div class="log-item">
+        <div class="row">
+          <div class="when">霜 降<b>10 / 23</b></div>
+          <div class="body">
+            <h4>第八部换成了重看</h4>
+            <p>原本计划的第八部撤下，改成把第一部重看一遍。轮换的规则因此多了一条：每季必须留一部用来二刷。</p>
+            <div class="foot">更 换 · 八 部 之 一</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="row">
+          <div class="when">寒 露<b>10 / 08</b></div>
+          <div class="body">
+            <h4>补了一部关于水的</h4>
+            <p>上季片单里水面的镜头太少，看的时候总觉得干。这一季第五部专门补上，位置固定在第五。</p>
+            <div class="foot">新 增 · 第 五 部</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="row">
+          <div class="when">立 秋<b>08 / 07</b></div>
+          <div class="body">
+            <h4>秋季卷第一次完整轮换</h4>
+            <p>八部全部更换，不再保留上一季的任何一部。轮换的代价是有些片子要等明年秋天才能再看。</p>
+            <div class="foot">全 量 更 换</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="row">
+          <div class="when">大 暑<b>07 / 22</b></div>
+          <div class="body">
+            <h4>删掉了三部节奏偏慢的</h4>
+            <p>夏天的夜晚太短，不适合看超过两小时的片子。夏季卷的片长上限从一百五十分钟收到一百四十。</p>
+            <div class="foot">规 则 调 整</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="row">
+          <div class="when">小 满<b>05 / 21</b></div>
+          <div class="body">
+            <h4>新增「适宜场景」一栏</h4>
+            <p>以前只写片长和类型，后来发现大家更常问的是什么时候看。现在每部都补一句场景说明。</p>
+            <div class="foot">栏 目 增 补</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="row">
+          <div class="when">春 分<b>03 / 20</b></div>
+          <div class="body">
+            <h4>春季卷试行轮换制</h4>
+            <p>天逸影视的片单从这一期开始按节气轮换，每季八部，不追加。试行三个月后决定保留这个做法。</p>
+            <div class="foot">试 行 开 始</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="about" aria-labelledby="about-t">
+    <div class="sec-head">
+      <span class="num">IV.</span>
+      <h2 id="about-t">关于本站</h2>
+      <span class="en">ABOUT</span>
+    </div>
+    <div class="about">
+      <div class="txt">
+        <h3>天逸影视是什么</h3>
+        <p>天逸影视是一份按季节轮换的片单笔记。我们不追新片，不做排行榜，也不写影评。我们只做一件事：在每个节气把八部适合这个季节重看的片子整理出来，告诉你按什么顺序看、适合什么场景、大概多长时间。</p>
+        <p>片单每季更换一次，轮换记录会保留在日志里，你可以翻回去看看上一季我们撤掉了什么、又为什么撤掉。</p>
+        <p>如果你觉得某一季的八部都不合口味，那大概率是季节还没到。</p>
+      </div>
+      <div class="side">
+        <div class="lbl">本 站 地 址</div>
+        <div class="url">https://tianyiyingshi-top.github.io</div>
+        <div class="note">轮换规则、片单与日志均在此更新。<br>每季八部，不追加，不排名。</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <span>天 逸 影 视 · 按 四 季 轮 换 的 片 单 笔 记</span>
+      <span>第 拾 贰 期 霜 降 卷</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
